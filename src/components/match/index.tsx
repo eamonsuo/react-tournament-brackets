@@ -12,6 +12,28 @@ import {
   Anchor,
 } from './styles';
 
+const LateEntryArrow = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    style={{
+      transform: 'rotate(90deg)',
+      marginRight: '4px',
+      marginTop: '-1px',
+      verticalAlign: 'middle',
+      display: 'inline-block',
+    }}
+  >
+    <path
+      fill="#22c55e"
+      fillRule="evenodd"
+      d="M11 19h2V7.823l3.24 3.24 1.414-1.414-4.238-4.239-1.413-1.413-1.415 1.415-4.242 4.242 1.413 1.413L11 7.826z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
 function Match({
   bottomHovered,
   bottomParty,
@@ -26,7 +48,12 @@ function Match({
   topParty,
   topText,
   topWon,
-}: MatchComponentProps) {
+  isTopPartyLateEntry = false,
+  isBottomPartyLateEntry = false,
+}: MatchComponentProps & {
+  isTopPartyLateEntry?: boolean;
+  isBottomPartyLateEntry?: boolean;
+}) {
   return (
     <Wrapper>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -50,7 +77,10 @@ function Match({
           hovered={topHovered}
           onClick={() => onPartyClick?.(topParty, topWon)}
         >
-          <Team>{topParty?.name}</Team>
+          <Team>
+            {isTopPartyLateEntry && topParty?.id && <LateEntryArrow />}
+            {topParty?.name}
+          </Team>
           <Score won={topWon}>{topParty?.resultText}</Score>
         </Side>
         <Line highlighted={topHovered || bottomHovered} />
@@ -61,7 +91,10 @@ function Match({
           hovered={bottomHovered}
           onClick={() => onPartyClick?.(bottomParty, bottomWon)}
         >
-          <Team>{bottomParty?.name}</Team>
+          <Team>
+            {isBottomPartyLateEntry && bottomParty?.id && <LateEntryArrow />}
+            {bottomParty?.name}
+          </Team>
           <Score won={bottomWon}>{bottomParty?.resultText}</Score>
         </Side>
       </StyledMatch>

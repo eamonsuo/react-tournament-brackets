@@ -36,6 +36,13 @@ export type Match = {
 
   participants: Participant[];
 
+  /** Controls how this specific match renders if it's a bye match.
+   * 'skip': Don't render the bye match
+   * 'show-with-indicator': Render match with "Bye to Round X" label
+   * If not specified, defaults to 'skip'
+   */
+  byeRenderMode?: 'skip' | 'show-with-indicator';
+
   [key: string]: any;
 };
 
@@ -220,4 +227,8 @@ export type SingleElimLeaderboardProps = BracketLeaderboardProps & {
 
 export type DoubleElimLeaderboardProps = BracketLeaderboardProps & {
   matches: { upper: Match[]; lower: Match[] };
+};
+
+export type FlexibleSingleElimLeaderboardProps = BracketLeaderboardProps & {
+  matches: Match[];
 };

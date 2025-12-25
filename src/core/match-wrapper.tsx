@@ -17,6 +17,7 @@ function Match({
   matchComponent: MatchComponent,
   onMatchClick,
   onPartyClick,
+  lateEntryParticipantIds = new Set(),
   ...rest
 }) {
   const {
@@ -130,6 +131,10 @@ function Match({
               bottomText,
               connectorColor,
               computedStyles,
+              isTopPartyLateEntry: lateEntryParticipantIds.has(topParty?.id),
+              isBottomPartyLateEntry: lateEntryParticipantIds.has(
+                bottomParty?.id
+              ),
             }}
           />
         )}
